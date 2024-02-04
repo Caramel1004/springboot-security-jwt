@@ -58,7 +58,9 @@ import org.springframework.security.web.authentication.www.BasicAuthenticationFi
 @RequiredArgsConstructor
 public class SecurityConfig {
 
-    private final UserService userService;
+    private final AuthUserDetailService authUserDetailService;
+
+    private AuthenticationManager authenticationManager;
 
     @Value("${jwt.secretKey}")
     private final String secretKey;
@@ -66,29 +68,47 @@ public class SecurityConfig {
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity httpSecurity) throws Exception {
         // 폼 로그인 비활성화
-        httpSecurity.formLogin(login -> login.disable());
+        httpSecurity.formLogin(AbstractHttpConfigurer::disable);
 
         // HTTP 기본 비활성화
-        httpSecurity.httpBasic(http -> http.disable());
+        httpSecurity.httpBasic(AbstractHttpConfigurer::disable);
 
         // csrf 공격 방어 기능 비활성화
-        httpSecurity.csrf(csrf -> csrf.disable());
+        httpSecurity.csrf(AbstractHttpConfigurer::disable);
 
         // 세션 비활성화 => JWT로 인증
         httpSecurity.sessionManagement(management ->
                 management.sessionCreationPolicy(SessionCreationPolicy.STATELESS));
 
+        // 인가 설정: 인증이 필요한 요청 등록 authenticated, 인증이 필요없는 요청 등록 permitAll
         httpSecurity.authorizeHttpRequests(req -> req
-                .requestMatchers("/szs/signup").permitAll()
-                .requestMatchers("/szs/login").permitAll()
-                .requestMatchers("/szs/**").authenticated()
+                .requestMatchers("/**").permitAll()
+                .anyRequest().authenticated()
         );
 
-        httpSecurity.addFilterBefore(new JwtAuthenticationFilter(userService), UsernamePasswordAuthenticationFilter.class);
+        /*
+        * 인증 방식 설정
+        *   - 인메모리 방식
+        *   - JDBC 방식
+        *   - 커스텀 방식
+        * 적용: 커스텀 방식
+        * */
+        httpSecurity.userDetailsService(authUserDetailService);
 
-        httpSecurity.exceptionHandling(e -> e.Jwt);
+
+        /*
+         * 필터 설정
+         * 1. JWT Request Filter
+         *   - JWT 해석
+         * 2. JWT Filter(Login)
+         *   - @param userId, password
+         *   - 토큰 생성
+         * */
+        httpSecurity.addFilterAt(new JwtAuthenticationFilter(authenticationManager), null)
+                .addFilterBefore(null, null);
+
+
         return httpSecurity.build();
-        return null;
     }
 }
 
