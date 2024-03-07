@@ -25,6 +25,9 @@ dependencies {
 	// web
 	implementation 'org.springframework.boot:spring-boot-starter-web'
 
+	//devtools
+	implementation 'org.springframework.boot:spring-boot-devtools'
+
 	// lombok
 	compileOnly 'org.projectlombok:lombok'
 	annotationProcessor 'org.projectlombok:lombok'
