@@ -1,5 +1,29 @@
-### Spring Security란?
+### 사용된 기술 스택
+>- 개발 언어: java 17
+>- 프레임워크: springboot 3.2.3
+>- DB: H2
+>- 유틸: JPA
+>- 단위 테스트: junit5
+>- 빌드 환경: gradle
+>- 작업 툴: intellij
 
+### Spring Security란?
+[영어]
+#### *Spring Security is a powerful and highly customizable authentication and access-control framework.*
+- It is the de-facto standard for securing Spring-based applications.
+- Spring Security is a framework that focuses on providing both authentication and authorization to Java applications. 
+- Like all Spring projects, the real power of Spring Security is found in how easily it can be extended to meet custom requirements.
+<br>
+
+[한국어]
+#### *Spring Security는 강력하고 사용자 정의가 가능한 인증 및 액세스 제어 프레임워크입니다.* <br>
+- Spring 기반 애플리케이션 보안을 위한 사실상의 표준입니다.<br>
+- Spring Security는 Java 애플리케이션에 인증과 권한 부여를 모두 제공하는 데 중점을 둔 프레임워크입니다. <br>
+- 모든 Spring 프로젝트와 마찬가지로 Spring Security의 진정한 힘은 사용자 정의 요구 사항을 충족하기 위해 얼마나 쉽게 확장할 수 있는지에 있습니다.
+
+> 출처: Spring Security 공식 문서 <br>
+>[https://spring.io/projects/spring-security#overview](https://spring.io/projects/spring-security#overview)
+<br>
 
 ### Spring Security 특징
 1. 기본적으로 모든 리소스를 보호합니다.
