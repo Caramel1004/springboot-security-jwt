@@ -7,6 +7,16 @@
 >- 빌드 환경: gradle
 >- 작업 툴: intellij
 
+<br>
+
+### Reference docs
+> Spring Security 공식 참고 문서 <br>
+>[https://docs.spring.io/spring-security/reference/index.html](https://docs.spring.io/spring-security/reference/index.html)<br><br>
+> Spring Security 적용 코드 <br>
+>[https://docs.spring.io/spring-security/reference/servlet/authentication/index.html](https://docs.spring.io/spring-security/reference/servlet/authentication/index.html)
+
+<br>
+
 ### Spring Security란?
 [영어]
 #### *Spring Security is a powerful and highly customizable authentication and access-control framework.*
