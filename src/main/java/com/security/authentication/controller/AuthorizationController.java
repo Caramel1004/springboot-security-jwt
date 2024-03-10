@@ -27,17 +27,6 @@ public class AuthorizationController {
         );
     }
 
-    @PostMapping("/authorization")
-    public ResponseEntity<?> login (@RequestBody UserLoginRequestBody body) {
-        return ResponseEntity.status(HttpStatus.OK).body(
-                ResponseBody.builder()
-                        .statusCode(HttpStatus.OK)
-                        .message("인증에 성공하였습니다.")
-                        .data(body)
-                        .build()
-        );
-    }
-
     @PostMapping("/signup")
     public ResponseEntity<?> signup (@RequestBody UserDataDTO body) {
         System.out.println(body);
