@@ -5,6 +5,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
+import org.springframework.security.config.annotation.web.configurers.HeadersConfigurer;
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.web.cors.CorsConfiguration;
@@ -57,13 +58,20 @@ public class SpringSecurityConfig {
         );
 
         /*
+         * Spring Security 는 기본적으로 iframe이 비활성화 상태입니다.
+         * iframe 허용하려면 활성상태로 설정 해야합니다.
+         * */
+        httpSecurity.headers(header -> header.frameOptions(HeadersConfigurer.FrameOptionsConfig::sameOrigin));
+
+        /*
          * 허용할 엔드포인트와 허용하지 않을 엔드포인트를 설정합니다.
          * 로그인과 회원가입은 허용해주어야 인증되지 않은 회원이 서비스를 이용할 수 있도록 하는 엔드포인트 이기때문에 이 두개의 엔드포인트는 허용해줍니다.
          * */
         httpSecurity.authorizeHttpRequests(req -> req
-                .requestMatchers("/api/v1/authorization", "/api/v1/signup").permitAll()
+                        .anyRequest().permitAll()
+//                .requestMatchers("/api/v1/signup", "/api/v1/test", "/h2-console").permitAll()
+//                .requestMatchers("/h2-console").permitAll()
         );
-
 
         return httpSecurity.build();
     }
