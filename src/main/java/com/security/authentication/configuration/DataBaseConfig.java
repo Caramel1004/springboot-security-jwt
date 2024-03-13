@@ -31,14 +31,17 @@ public class DataBaseConfig {
      * */
     @Bean
     UserDetailsManager users(DataSource dataSource) {
+        SpringSecurityConfig securityConfig = new SpringSecurityConfig();
         UserDetails user = User
                 .withUsername("user")
-                .password("{bcrypt}$2a$10$GRLdNijSQMUvl/au9ofL.eDwmoohzzS7.rmNSJZ.0FxO/BTk76klW")
+                .password("test")
+                .passwordEncoder(str -> securityConfig.passwordEncoder().encode(str))
                 .roles("USER")
                 .build();
         UserDetails admin = User
                 .withUsername("admin")
-                .password("{bcrypt}$2a$10$GRLdNijSQMUvl/au9ofL.eDwmoohzzS7.rmNSJZ.0FxO/BTk76klW")
+                .password("test")
+                .passwordEncoder(str -> securityConfig.passwordEncoder().encode(str))
                 .roles("USER", "ADMIN")
                 .build();
         JdbcUserDetailsManager users = new JdbcUserDetailsManager(dataSource);
