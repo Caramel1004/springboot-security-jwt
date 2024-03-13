@@ -30,7 +30,7 @@ public class DataBaseConfig {
      * UserDetailsManager는 UserDetailsService interface를 상속받은 interface 입니다.
      * */
     @Bean
-    UserDetailsManager users(DataSource dataSource) {
+    UserDetailsManager userDetailsManager(DataSource dataSource) {
         SpringSecurityConfig securityConfig = new SpringSecurityConfig();
         UserDetails user = User
                 .withUsername("user")
